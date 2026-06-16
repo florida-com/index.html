@@ -3,42 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جملة عشوائية</title>
+<title>MCR4 KEY SYSTEM</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #f5f5f5;
+body{
+    background:#0a0a0a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial,sans-serif;
 }
 
-#quote {
-    font-size: 28px;
-    text-align: center;
-    max-width: 600px;
-    padding: 20px;
+.container{
+    width:420px;
+    background:#111;
+    border:2px solid #008cff;
+    border-radius:25px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(0,140,255,.4);
+}
+
+h1{
+    color:#008cff;
+    margin-bottom:25px;
+}
+
+.key-box{
+    background:#000;
+    color:white;
+    border:1px solid #008cff;
+    border-radius:15px;
+    padding:15px;
+    font-size:18px;
+    word-break:break-all;
+    margin-bottom:15px;
+}
+
+button{
+    background:#008cff;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:15px;
+    cursor:pointer;
+    font-size:16px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.info{
+    color:#aaa;
+    margin-top:15px;
 }
 </style>
 </head>
 <body>
 
-<div id="quote"></div>
+<div class="container">
+    <h1>MCR4 KEY SYSTEM</h1>
+
+    <div class="key-box" id="key"></div>
+
+    <button onclick="copyKey()">نسخ المفتاح</button>
+
+    <div class="info">
+        صالح لمدة 24 ساعة
+    </div>
+</div>
 
 <script>
-const quotes = [
-    "ابتسم، يومك أجمل مما تتوقع.",
-    "النجاح يبدأ بخطوة صغيرة.",
-    "لا تستسلم مهما كانت الصعوبات.",
-    "كل يوم فرصة جديدة.",
-    "ثق بنفسك وقدراتك."
-];
+function generateKey() {
+    const prefixes = [
+        "MCR4",
+        "ZXR9",
+        "BLU7",
+        "NXT5",
+        "KRX8"
+    ];
 
-const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-document.getElementById("quote").textContent = randomQuote;
+    const prefix =
+        prefixes[Math.floor(Math.random() * prefixes.length)];
+
+    const randomNumber =
+        Math.floor(100000000 + Math.random() * 900000000);
+
+    return prefix + randomNumber;
+}
+
+const key = generateKey();
+
+document.getElementById("key").textContent = key;
+
+// حفظ وقت انتهاء المفتاح
+const expireTime = Date.now() + (24 * 60 * 60 * 1000);
+
+localStorage.setItem("mcr4_key", key);
+localStorage.setItem("mcr4_expire", expireTime);
+
+function copyKey(){
+    navigator.clipboard.writeText(key);
+    alert("تم نسخ المفتاح");
+}
 </script>
 
 </body>
